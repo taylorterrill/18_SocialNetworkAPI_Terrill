@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const reactionSchema = require('./Reaction');
 
 // Thought model will store...
 
@@ -27,3 +28,7 @@ const thoughtSchema = new mongoose.Schema({
 
 // Create a virtual called reactionCount that retrieves the length of the thought's 
 // reactions array field on query.
+
+const Thought = mongoose.model('Thought', thoughtSchema);
+
+module.exports = Thought;
