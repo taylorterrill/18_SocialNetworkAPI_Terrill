@@ -1,9 +1,10 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 const reactionSchema = new mongoose.Schema({
     reactionId: {
-        // Use Mongoose's ObjectId data type
-        // Default value is set to a new ObjectId
+        type: Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
     },
     reactionBody: {
         type: String,
@@ -16,14 +17,16 @@ const reactionSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
-        // Use a getter method to format the timestamp on query
+        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a'),
+        default: Date.now
     },
-})
-
-// Schema Settings
-
-// This will not be a model, but rather will be used as the reaction field's 
-// subdocument schema in the Thought model.
+},
+    {
+        toJSON: {
+            getters: true,
+        },
+        id: false,
+    }
+);
 
 module.exports = reactionSchema;

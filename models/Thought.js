@@ -1,4 +1,6 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
+
 const reactionSchema = require('./Reaction');
 
 // Thought model will store...
