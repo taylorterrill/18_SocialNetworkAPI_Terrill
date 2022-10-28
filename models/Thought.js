@@ -1,6 +1,5 @@
 const moment = require('moment');
 const mongoose = require('mongoose');
-
 const reactionSchema = require('./Reaction');
 
 // Thought model will store...
@@ -15,21 +14,24 @@ const thoughtSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // Use a getter method to format the timestamp on query
+        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
     },
     username: {
         type: String,
         required: true,
     },
-    reactions: {
-        // Array of nested documents created with the reactionSchema
-    },
-})
+    reactions: [reactionSchema],
+},
+    {
+        toJSON: {
+            getters: true,
+        },
+    }
+);
 
-// Schema Settings
-
-// Create a virtual called reactionCount that retrieves the length of the thought's 
-// reactions array field on query.
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+});
 
 const Thought = mongoose.model('Thought', thoughtSchema);
 
