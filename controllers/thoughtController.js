@@ -31,27 +31,25 @@ module.exports = {
             })
             .catch((err) => res.status(500).json(err));
     },
-    //todo
-    updateUser(req, res) {
-        User.findOneAndUpdate(
-            { _id: req.params.userId },
+    updateThought(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
             { $set: req.body },
             { runValidators: true, new: true }
         )
-            .then((user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with this id!' })
-                    : res.json(user)
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No thought with this id!' })
+                    : res.json(thought)
             )
             .catch((err) => res.status(500).json(err));
     },
-    //todo
-    deleteUser(req, res) {
-        User.findOneAndDelete({ _id: req.params.userId })
-            .then((user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with that ID' })
-                    : res.json(user)
+    deleteThought(req, res) {
+        Thought.findOneAndDelete({ _id: req.params.thoughtId })
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No thought with that ID' })
+                    : res.json(thought)
             )
     }
 }
