@@ -7,13 +7,13 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
     getSingleUser(req, res) {
-        User.findOne({ _id: req.params.userID })
+        User.findOne({ _id: req.params.userId })
             .select('-__v')
             .populate('friends')
             .populate('thoughts')
             .then((user) =>
                 !user
-                    ? res.status(404).json({ message: 'No course with that ID' })
+                    ? res.status(404).json({ message: 'No user with that ID' })
                     : res.json(user)
             )
             .catch((err) => res.status(500).json(err));
@@ -27,7 +27,17 @@ module.exports = {
             });
     },
     updateUser(req, res) {
-        
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with this id!' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
     },
     deleteUser(req, res) {
         User.findOneAndDelete({ _id: req.params.userId })
@@ -36,7 +46,5 @@ module.exports = {
                     ? res.status(404).json({ message: 'No user with that ID' })
                     : res.json(user)
             )
-            .then(() => res.json({ message: 'User deleted!' }))
-            .catch((err) => res.status(500).json(err));
     }
 }
