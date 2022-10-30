@@ -2,7 +2,7 @@ const moment = require('moment');
 const mongoose = require('mongoose');
 const reactionSchema = require('./Reaction');
 
-// Thought model will store...
+// Thought model will store information about user's posts AKA thoughts
 
 const thoughtSchema = new mongoose.Schema({
     thoughtText: {

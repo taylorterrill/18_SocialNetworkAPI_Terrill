@@ -1,6 +1,8 @@
 const moment = require('moment');
 const mongoose = require('mongoose');
 
+// stores responses to users' thoughts
+
 const reactionSchema = new mongoose.Schema({
     reactionId: {
         type: mongoose.Schema.Types.ObjectId,
