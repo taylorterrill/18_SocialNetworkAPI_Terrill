@@ -4,7 +4,8 @@
 An API for a social network where users can share their thoughts and reactions. They can also create a friends list.
 
 ![Screenshot](/media/Screenshot%202022-10-29%20154310.png)
-![Demo](https://youtu.be/MJqlbmFK_BE)
+
+[Demo](https://youtu.be/MJqlbmFK_BE)
 
 ## Table of Contents
 * [Installation](#installation)
